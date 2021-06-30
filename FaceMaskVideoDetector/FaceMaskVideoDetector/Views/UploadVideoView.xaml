@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FaceMaskVideoDetector.Views.UploadVideoView"
+             xmlns:vm="clr-namespace:FaceMaskVideoDetector.ViewModels"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             Title="Record n' Upload">
+
+    <ContentPage.BindingContext>
+        <vm:UploadVideoViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <StackLayout Margin="15" Spacing="15">
+            <Button Text="Record Video"
+                    Command="{Binding RecordCommand}"/>
+
+            <Button Text="Load Video"
+                    Command="{Binding LoadCommand}"/>
+
+            <Button Text="Upload Video"
+                    Command="{Binding UploadCommand}"/>
+
+            <ActivityIndicator Color="{StaticResource mainColor}"
+                               IsRunning="{Binding IsBusy}" />
+
+            <xct:MediaElement ShowsPlaybackControls="True"
+                              HeightRequest="400"
+                              WidthRequest="400"
+                              Aspect="AspectFit"
+                              AutoPlay="True"
+                              Source="{Binding VideoFullPath}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

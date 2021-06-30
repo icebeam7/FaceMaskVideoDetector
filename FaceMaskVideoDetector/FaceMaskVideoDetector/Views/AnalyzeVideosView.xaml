@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FaceMaskVideoDetector.Views.AnalyzeVideosView"
+             xmlns:pages="clr-namespace:FaceMaskVideoDetector.Views"
+             xmlns:converter="clr-namespace:FaceMaskVideoDetector.Converters"
+             Title="Analyze">
+
+    <ContentPage.Resources>
+        <converter:Base64ToStreamConverter x:Key="base64ToStreamConverter" />
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <StackLayout Margin="15">
+            <RefreshView IsRefreshing="{Binding IsBusy}"
+                         Command="{Binding RefreshCommand}"
+                         RefreshColor="{StaticResource mainColor}">
+                <CollectionView SelectionMode="Single"
+                                EmptyView="No videos available"
+                                BackgroundColor="{StaticResource subColor}"
+                                ItemsSource="{Binding Videos}"
+                                SelectedItem="{Binding SelectedVideo}"
+                                SelectionChangedCommand="{Binding NavigateToDetailCommand}"
+                                SelectionChangedCommandParameter="{x:Type pages:DetailVideoView}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" 
+                                           ItemSpacing="20"/>
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid RowSpacing="10" 
+                                  HorizontalOptions="FillAndExpand">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="200"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Frame Padding="0"
+                                       CornerRadius="20" 
+                                       IsClippedToBounds="True">
+                                    <Image Source="{Binding Thumbnail, Converter={StaticResource base64ToStreamConverter}}"
+                                           Aspect="AspectFill"/>
+                                </Frame>
+
+                                <Frame Padding="0"
+                                       CornerRadius="20"
+                                       VerticalOptions="End"
+                                       HorizontalOptions="FillAndExpand"
+                                       IsClippedToBounds="True"
+                                       HeightRequest="50">
+                                    <Frame.Background>
+                                        <LinearGradientBrush StartPoint="0,0"
+                                                             EndPoint="1,0">
+                                            <GradientStop Color="Transparent"
+                                                          Offset="0.5"/>
+                                            <GradientStop Color="{StaticResource mainColor}"
+                                                          Offset="1.0"/>
+                                        </LinearGradientBrush>
+                                    </Frame.Background>
+
+                                    <Label Text="{Binding Name}"
+                                           TextColor="{StaticResource subColor}"
+                                           FontSize="Medium"
+                                           FontAttributes="Bold"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="End"
+                                           Margin="0,0,10,0"/>
+                                </Frame>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

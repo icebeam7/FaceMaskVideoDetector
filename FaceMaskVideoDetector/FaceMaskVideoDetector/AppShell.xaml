@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       x:Class="FaceMaskVideoDetector.AppShell"
+       xmlns:pages="clr-namespace:FaceMaskVideoDetector.Views">
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <Tab Title="Record n' Upload">
+            <ShellContent Title="Record n' Upload" ContentTemplate="{DataTemplate pages:UploadVideoView}"/>
+        </Tab>
+        <Tab Title="Analyze">
+            <ShellContent Title="Analyze" ContentTemplate="{DataTemplate pages:AnalyzeVideosView}"/>
+        </Tab>
+
+    </FlyoutItem>
+</Shell>
